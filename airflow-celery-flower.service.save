@@ -1,0 +1,14 @@
+[Unit]
+Description=Airflow celery flower daemon
+After=network.target postgresql.service airflow-webserver.service airflow-scheduler.service
+Wants=postgresql.service airflow-webserver.service airflow-scheduler.service
+
+[Service]
+User=andreas
+Group=andreas
+Type=simple
+ExecStart=/home/andreas/miniconda3/bin/airflow celery workerRestart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
